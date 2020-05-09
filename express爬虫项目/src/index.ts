@@ -1,4 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
+import "./controller/LoginController";
+import "./controller/CrowllerController";
 import router from "./router";
 import bodyParser from "body-parser";
 import cookieSession from "cookie-session";
@@ -19,6 +21,6 @@ app.use(
   })
 );
 app.use(router);
-app.listen(1541, () => {
+app.listen(7001, () => {
   console.log("server is running...");
 });

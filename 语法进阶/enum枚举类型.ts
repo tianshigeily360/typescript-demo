@@ -21,5 +21,5 @@ function getResult(status) {
   return "ERROR";
 }
 
-const res = getResult(1);
+const res = getResult(4);
 console.log(res); // "ONLINE"

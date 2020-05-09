@@ -1,22 +1,24 @@
-// 类的装饰器本事是一个函数
-// 装饰器接受的参数是构造函数
-// 装饰器调用通过 @ 符号
-// 装饰器调用时间是在类创建之时，不是实例化的时候
-
-// 使用工厂模式创建装饰器，可以通过传参形式达到选择性调用装饰器的目的
-function testDecorator(flag: Boolean) {
-  if (flag) {
-    return function(constructor: any) {
-      constructor.prototype.getName = () => {
-        console.log("jm");
-      };
+// 通过这种工厂模式对class做扩展，使其支持语法提示
+function testDecorator1() {
+  return function<T extends new (...args: any[]) => any>(constructor: T) {
+    return class extends constructor {
+      name = "jm";
+      getName() {
+        return this.name;
+      }
     };
-  } else {
-    return function(constructor: any) {};
-  }
+  };
 }
 
-@testDecorator(true)
-class Test {}
-const test = new Test();
-(test as any).getName();
+const Test1 = testDecorator1()(
+  class {
+    name: string;
+    constructor(name: string) {
+      this.name = name;
+    }
+  }
+);
+
+const test1 = new Test1("jm");
+console.log(test1.name);
+console.log(test1.getName());
